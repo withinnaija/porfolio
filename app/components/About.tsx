@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { toast } from "sonner";
 import avatar from "../../public/avatar.png";
+import Link from "next/link";
 
 export default function About() {
   const copyEmail = async () => {
@@ -44,7 +45,9 @@ export default function About() {
             <div className="flex flex-wrap items-center gap-2">
               <button className="flex items-center gap-2 rounded-lg bg-[#141316] px-3 py-2 text-[12px] font-medium text-white transition hover:bg-gray-800">
                 <span className="h-2.5 w-2.5 rounded-full bg-white" />
-                <span>Hire me</span>
+                <a href="#hireme">
+                  <span>Hire me</span>
+                </a>
               </button>
 
               <button

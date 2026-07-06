@@ -1,6 +1,39 @@
+"use client";
+
+import { FormEvent } from "react";
+import { toast } from "sonner";
+
 export function HireMe() {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget; // Save it first
+
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      toast.success("Message sent successfully!");
+      form.reset(); // Use the saved reference
+    } else {
+      toast.error("Failed to send message.");
+    }
+  };
   return (
-    <section className="mt-4 w-full">
+    <section id="hireme" className="mt-4 w-full">
       <div className="rounded-[24px] border border-gray-200 bg-white p-5 shadow-sm">
         <div className="text-center">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#F3F5F6] px-3 py-1.5">
@@ -18,23 +51,29 @@ export function HireMe() {
           </p>
         </div>
 
-        <form className="mt-5 space-y-3">
+        <form onSubmit={handleSubmit} className="mt-5 space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row">
             <input
               type="text"
+              name="name"
               placeholder="Your name"
+              required
               className="w-full rounded-xl border border-gray-200 bg-[#F8F9FA] px-3 py-2.5 text-sm text-[#141316] outline-none transition focus:border-[#141316]"
             />
             <input
               type="email"
+              name="email"
               placeholder="Your email"
+              required
               className="w-full rounded-xl border border-gray-200 bg-[#F8F9FA] px-3 py-2.5 text-sm text-[#141316] outline-none transition focus:border-[#141316]"
             />
           </div>
 
           <textarea
+            name="message"
             placeholder="Tell me about your project"
             rows={4}
+            required
             className="h-24 w-full rounded-xl border border-gray-200 bg-[#F8F9FA] px-3 py-2.5 text-sm text-[#141316] outline-none transition focus:border-[#141316]"
           />
 

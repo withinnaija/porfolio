@@ -1,10 +1,14 @@
+"use client";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import avatar from "../../public/globe.svg";
+import { useState } from "react";
 import { projectsDone } from "../works";
 
 export function Project() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? projectsDone : projectsDone.slice(0, 3);
+
   return (
     <section id="projects" className="w-full">
       <div className="flex items-center justify-between gap-3">
@@ -13,14 +17,17 @@ export function Project() {
           <span className="text-sm font-medium text-[#5B5A5C]">Projects</span>
         </div>
 
-        <button className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#141316] transition hover:bg-gray-100">
-          View All
+        <button
+          onClick={() => setShowAll((prev) => !prev)}
+          className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#141316] transition hover:bg-gray-100"
+        >
+          {showAll ? "Show Less" : "View All"}
           <ArrowRight className="h-4 w-4" />
         </button>
       </div>
 
       <div className="mt-5 space-y-3">
-        {projectsDone.map((project) => (
+        {visibleProjects.map((project) => (
           <div
             key={project.name}
             className="rounded-[24px] border border-gray-200 bg-white p-4 shadow-sm"
@@ -29,7 +36,7 @@ export function Project() {
               <div className="flex items-start gap-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100">
                   <Image
-                    src={avatar}
+                    src={project.image}
                     width={30}
                     height={30}
                     alt="Project Logo"
