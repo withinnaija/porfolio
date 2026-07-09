@@ -10,14 +10,14 @@ export const projectsDone = [
     name: "Crypto Price",
     image: "/coin-price.png",
 
-    link: "https://tin-jade.vercel.app/",
+    link: "https://coin-4lje.vercel.app/",
     description: "you can short your long link or change it to qrcode",
   },
   {
     name: "Link shortner",
     image: "/linkshortner.png",
 
-    link: "https://linkshortener-8him.vercel.app/",
+    link: "https://tin-jade.vercel.app/",
     description: "you can short your long link or change it to qrcode",
   },
   {
